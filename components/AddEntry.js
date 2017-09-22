@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { compose, withState } from 'recompose'
 import Stepper from 'react-native-simple-stepper';
-import { View, Text, Slider } from 'react-native'
+import { View, Text, Slider, StyleSheet } from 'react-native'
 import { getMetricMetaInfo } from '../utils/helpers'
 
 type Props = {
@@ -43,8 +43,8 @@ class AddEntry extends Component<Props, State> {
   }
   render() {
     return (
-      <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
-        <View style={{ width: '100%', height: '50%', display: 'flex' }}>
+      <View style={styles.container}>
+        <View style={styles.table}>
           {Object.keys(this.state).map(key =>
             {
               const data = getMetricMetaInfo(key);
@@ -65,6 +65,21 @@ class AddEntry extends Component<Props, State> {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: '100%',
+  },
+  table: {
+    width: '100%',
+    height: '50%',
+    display: 'flex',
+  }
+})
 
 export default compose(
   withState('')
