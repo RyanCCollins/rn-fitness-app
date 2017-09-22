@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react'
 import { compose, withState } from 'recompose'
-import { View, Text } from 'react-native'
+import Stepper from 'react-native-simple-stepper';
+import { View, Text, Slider } from 'react-native'
 import { getMetricMetaInfo } from '../utils/helpers'
 
 type Props = {
@@ -14,6 +15,24 @@ type State = {
   bike: number
 }
 
+const Item = ({ type, max, ...rest }) => {
+  switch(type) {
+    case 'slider':
+      return <Slider style={{ width: 100 }} maximumValue={max} {...rest} />
+    case 'steppers':
+      return <Stepper style={{ width: 100 }} maximumValue={max} {...rest} />
+  }
+};
+
+const Row = (props) => (
+  <View style={{ height: 100, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text>
+      {props.displayName}
+    </Text>
+    <Item {...props} />
+  </View>
+)
+
 class AddEntry extends Component<Props, State> {
   state = {
     run: 0,
@@ -23,7 +42,27 @@ class AddEntry extends Component<Props, State> {
     eat: 0,
   }
   render() {
-    return Object.keys(this.state).map(key => getMetricMetaInfo(key).getIcon())
+    return (
+      <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
+        <View style={{ width: '100%', height: '50%', display: 'flex' }}>
+          {Object.keys(this.state).map(key =>
+            {
+              const data = getMetricMetaInfo(key);
+              return (
+                <Row
+                  key={key}
+                  value={this.state[key]}
+                  max={data.max}
+                  displayName={data.displayName}
+                  step={data.step}
+                  type={data.type}
+                />
+              )
+            }
+          )}
+        </View>
+      </View>
+    )
   }
 }
 
