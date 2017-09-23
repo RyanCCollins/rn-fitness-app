@@ -1,10 +1,22 @@
 import React from 'react'
+import { withState, compose } from 'recompose'
+import floor from 'lodash/floor';
 import { View, Text, Slider, StyleSheet } from 'react-native'
 
-export default function UdaciSlider () {
+function UdaciSlider({ max, unit, step, value, setValue }) {
   return (
-    <View style={styles.container}>
-      <Text>UdaciSlider</Text>
+    <View>
+      <Slider
+        step={step}
+        value={value}
+        maximumValue={max}
+        minimumValue={0}
+        onValueChange={setValue}
+      />
+      <View>
+        <Text>{value}</Text>
+        <Text>{unit}</Text>
+      </View>
     </View>
   )
 }
@@ -17,4 +29,11 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center'
   },
+  label: {
+    fontSize: 22
+  }
 });
+
+export default compose(
+  withState('value', 'setValue', 0)
+)(UdaciSlider)

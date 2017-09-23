@@ -8,6 +8,7 @@ import { getMetricMetaInfo, timeToString } from '../utils/helpers'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
+import SubmitButton from './SubmitButton'
 
 type Props = {
 
@@ -19,15 +20,6 @@ type State = {
   swim: number,
   sleep: number,
   eat: number,
-}
-
-
-function SubmitButton({ onPress }) {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>Submit</Text>
-    </TouchableOpacity>
-  )
 }
 
 class AddEntry extends Component<Props, State> {
