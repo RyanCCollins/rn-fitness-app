@@ -3,8 +3,11 @@
 import React, { Component } from 'react'
 import { compose, withState } from 'recompose'
 import Stepper from 'react-native-simple-stepper';
-import { View, Text, Slider, StyleSheet } from 'react-native'
-import { getMetricMetaInfo } from '../utils/helpers'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { getMetricMetaInfo, timeToString } from '../utils/helpers'
+import UdaciSlider from './UdaciSlider'
+import UdaciSteppers from './UdaciSteppers'
+import DateHeader from './DateHeader'
 
 type Props = {
 
@@ -12,26 +15,20 @@ type Props = {
 
 type State = {
   run: number,
-  bike: number
+  bike: number,
+  swim: number,
+  sleep: number,
+  eat: number,
 }
 
-const Item = ({ type, max, ...rest }) => {
-  switch(type) {
-    case 'slider':
-      return <Slider style={{ width: 100 }} maximumValue={max} {...rest} />
-    case 'steppers':
-      return <Stepper style={{ width: 100 }} maximumValue={max} {...rest} />
-  }
-};
 
-const Row = (props) => (
-  <View style={{ height: 100, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-    <Text>
-      {props.displayName}
-    </Text>
-    <Item {...props} />
-  </View>
-)
+function SubmitButton({ onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Text>Submit</Text>
+    </TouchableOpacity>
+  )
+}
 
 class AddEntry extends Component<Props, State> {
   state = {
@@ -41,46 +38,75 @@ class AddEntry extends Component<Props, State> {
     sleep: 0,
     eat: 0,
   }
+  increment = (metric) => {
+    const { max, step } = getMetricMetaInfo(metric)
+
+    this.setState((state) => {
+      const count = state[metric] + step
+
+      return {
+        ...state,
+        [metric]: count > max ? max : count,
+      }
+    })
+  }
+  decrement = (metric) => {
+    this.setState((state) => {
+      const count = state[metric] - getMetricMetaInfo(metric).step
+
+      return {
+        ...state,
+        [metric]: count < 0 ? 0 : count,
+      }
+    })
+  }
+  slide = (metric, value) => {
+    this.setState(() => ({
+      [metric]: value
+    }))
+  }
+  submit = () => {
+    const key = timeToString()
+    const entry = this.state
+    this.setState({
+      run: 0,
+      bike: 0,
+      swim: 0,
+      sleep: 0,
+      eat: 0,
+    })
+  }
   render() {
+    const metaInfo = getMetricMetaInfo()
     return (
-      <View style={styles.container}>
-        <View style={styles.table}>
-          {Object.keys(this.state).map(key =>
-            {
-              const data = getMetricMetaInfo(key);
-              return (
-                <Row
-                  key={key}
-                  value={this.state[key]}
-                  max={data.max}
-                  displayName={data.displayName}
-                  step={data.step}
-                  type={data.type}
-                />
-              )
-            }
-          )}
-        </View>
+      <View>
+        <DateHeader date={(new Date()).toLocaleDateString()} />
+        {Object.keys(metaInfo).map((key) => {
+          const { getIcon, type, ...rest } = metaInfo[key]
+          const value = this.state[key]
+
+          return (
+            <View key={key}>
+              {getIcon()}
+              {type === 'slider'
+                ? <UdaciSlider
+                    value={value}
+                    onChange={(value) => this.slide(key, value)}
+                    {...rest}
+                  />
+                : <UdaciSteppers
+                    value={value}
+                    onIncrement={() => this.increment(key)}
+                    onDecrement={() => this.decrement(key)}
+                    {...rest}
+                  />}
+            </View>
+          )
+        })}
+        <SubmitButton onPress={this.submit} />
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-  },
-  table: {
-    width: '100%',
-    height: '50%',
-    display: 'flex',
-  }
-})
-
-export default compose(
-  withState('')
-)(AddEntry)
+export default AddEntry
