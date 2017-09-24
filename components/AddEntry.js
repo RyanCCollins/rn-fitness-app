@@ -1,18 +1,16 @@
 // @flow
 
 import React, { Component } from 'react'
-import { compose, withState } from 'recompose'
-import Stepper from 'react-native-simple-stepper';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 import { getMetricMetaInfo, timeToString } from '../utils/helpers'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
 import SubmitButton from './SubmitButton'
+import TextButton from './TextButton'
 
-type Props = {
-
-}
+type Props = {}
 
 type State = {
   run: number,
@@ -54,12 +52,10 @@ class AddEntry extends Component<Props, State> {
   }
   slide = (metric, value) => {
     this.setState(() => ({
-      [metric]: value
+      [metric]: value,
     }))
   }
   submit = () => {
-    const key = timeToString()
-    const entry = this.state
     this.setState({
       run: 0,
       bike: 0,
@@ -68,7 +64,27 @@ class AddEntry extends Component<Props, State> {
       eat: 0,
     })
   }
+  reset = () => {
+    const key = timeToString()
+  }
   render() {
+    if (this.props.alreadyLogged) {
+      return (
+        <View>
+          <Ionicons
+            name="ios-happy-outline"
+            size={100}
+          />
+          <Text>
+            You already logged your information for today
+          </Text>
+          <TextButton onPress={this.reset}>
+            Reset
+          </TextButton>
+        </View>
+      )
+    }
+
     const metaInfo = getMetricMetaInfo()
     return (
       <View>
@@ -82,16 +98,16 @@ class AddEntry extends Component<Props, State> {
               {getIcon()}
               {type === 'slider'
                 ? <UdaciSlider
-                    value={value}
-                    onChange={(value) => this.slide(key, value)}
-                    {...rest}
-                  />
+                  value={value}
+                  onChange={val => this.slide(key, val)}
+                  {...rest}
+                />
                 : <UdaciSteppers
-                    value={value}
-                    onIncrement={() => this.increment(key)}
-                    onDecrement={() => this.decrement(key)}
-                    {...rest}
-                  />}
+                  value={value}
+                  onIncrement={() => this.increment(key)}
+                  onDecrement={() => this.decrement(key)}
+                  {...rest}
+                />}
             </View>
           )
         })}
