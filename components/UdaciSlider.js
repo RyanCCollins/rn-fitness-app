@@ -1,8 +1,25 @@
+// @flow
+
 import React from 'react'
 import { withState, compose } from 'recompose'
 import { View, Text, Slider, StyleSheet } from 'react-native'
 
-function UdaciSlider({ max, unit, step, value, setValue }) {
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
+})
+
+type Props = {
+  max: number,
+  unit: string,
+  step: number,
+  value: number,
+  setValue: (val: number) => void,
+}
+
+function UdaciSlider({ max, unit, step, value, setValue }: Props) {
   return (
     <View style={styles.container}>
       <Slider
@@ -20,13 +37,6 @@ function UdaciSlider({ max, unit, step, value, setValue }) {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginLeft: 20,
-    marginRight: 20,
-  },
-});
-
 export default compose(
-  withState('value', 'setValue', 0)
+  withState('value', 'setValue', 0),
 )(UdaciSlider)

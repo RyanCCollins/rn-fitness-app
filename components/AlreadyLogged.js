@@ -1,15 +1,15 @@
 // @flow
 
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text } from 'react-native'
-import TextButton from './TextButton'
 import { Ionicons } from '@expo/vector-icons'
+import TextButton from './TextButton'
 
 function AlreadyLogged() {
   return (
     <View>
       <Ionicons
-        name='ios-happy-outline'
+        name="ios-happy-outline"
         size={100}
       />
       <Text>

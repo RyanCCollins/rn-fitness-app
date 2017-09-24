@@ -1,13 +1,24 @@
+// @flow
+
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { withState, compose } from 'recompose'
 import Stepper from './Stepper'
 
-function Slider() {
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
+})
 
+type Props = {
+  setValue: (val: number) => void,
+  value: number,
+  unit: string,
 }
 
-function UdaciSteppers({ max, unit, step, value, setValue }) {
+function UdaciSteppers({ value, unit, setValue }: Props) {
   return (
     <View style={styles.container}>
       <Stepper
@@ -22,13 +33,6 @@ function UdaciSteppers({ max, unit, step, value, setValue }) {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginLeft: 20,
-    marginRight: 20,
-  },
-});
-
 export default compose(
-  withState('value', 'setValue', 0)
+  withState('value', 'setValue', 0),
 )(UdaciSteppers)

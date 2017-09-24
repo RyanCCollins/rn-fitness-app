@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import { FontAwesome, Entypo } from '@expo/vector-icons'
 import { black } from '../utils/colors'
 
@@ -16,10 +16,10 @@ export default function Stepper({
   return (
     <View>
       <TouchableOpacity onPress={onDecrement}>
-        <FontAwesome name='minus' size={30} color={black} />
+        <FontAwesome name="minus" size={30} color={black} />
       </TouchableOpacity>
       <TouchableOpacity onPress={onIncrement}>
-        <Entypo name='plus' size={30} color={black} />
+        <Entypo name="plus" size={30} color={black} />
       </TouchableOpacity>
     </View>
   )

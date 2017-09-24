@@ -38,6 +38,7 @@ node_modules/react-native/flow
 flow/
 
 [options]
+all = true
 module.system=haste
 
 emoji=true
