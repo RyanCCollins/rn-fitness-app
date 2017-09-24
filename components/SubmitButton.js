@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import { Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { red, white } from '../utils/colors'
 
 type Props = {
   onPress: () => void
@@ -13,18 +14,23 @@ function SubmitButton({ onPress }: Props) {
       style={styles.button}
       onPress={onPress}
     >
-      <Text>Submit</Text>
+      <Text style={styles.text}>Submit</Text>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'stretch',
+    alignItems: 'center',
     justifyContent: 'center',
-    height: 100,
-    textAlign: 'center',
-    fontSize: 28,
+    height: 44,
+    margin: 20,
+    padding: 20,
+    backgroundColor: red
+  },
+  text: {
+    color: white,
+    fontSize: 20,
   }
 })
 
