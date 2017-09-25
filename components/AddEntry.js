@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { getMetricMetaInfo, timeToString } from '../utils/helpers'
+import { submitEntry, removeEntry } from '../utils/api'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
@@ -56,6 +57,8 @@ class AddEntry extends Component<Props, State> {
     }))
   }
   submit = () => {
+    const key = timeToString()
+    
     this.setState({
       run: 0,
       bike: 0,
@@ -63,9 +66,12 @@ class AddEntry extends Component<Props, State> {
       sleep: 0,
       eat: 0,
     })
+
+    submitEntry({ key, entry: this.state })
   }
   reset = () => {
     const key = timeToString()
+    removeEntry(key)
   }
   render() {
     if (this.props.alreadyLogged) {
