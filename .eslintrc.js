@@ -13,7 +13,6 @@ module.exports = {
     "import/no-extraneous-dependencies": 0,
     "semi": [1, "never"],
     "eol-last": 0,
-    "flowtype-errors/show-errors": 2,
     "react/no-unused-prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-no-bind": [ 2, {
@@ -24,7 +23,6 @@ module.exports = {
   },
   "plugins": [
     "react",
-    "jsx-a11y",
-    "flowtype-errors"
+    "jsx-a11y"
   ]
 }

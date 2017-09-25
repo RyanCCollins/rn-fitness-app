@@ -44,7 +44,7 @@ class AddEntry extends Component<Props, Props, State> {
     })
   }
 
-  decrement = (metric: EntryKeys) => {
+  decrement = (metric: EntryKeys): void => {
     this.setState((state) => {
       const count = state[metric] - getMetricMetaInfo(metric).step
 
@@ -83,7 +83,7 @@ class AddEntry extends Component<Props, Props, State> {
   render() {
     const { alreadyLogged } = this.props
     if (alreadyLogged) {
-      return <AlreadyLogged />
+      return <AlreadyLogged />;
     }
 
     const metaInfo = getMetricMetaInfo()
