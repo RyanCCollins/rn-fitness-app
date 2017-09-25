@@ -8,25 +8,20 @@ import DateHeader from './DateHeader'
 import SubmitButton from './SubmitButton'
 import UIControl from './UIControl'
 import AlreadyLogged from './AlreadyLogged'
+import type { Entry, EntryKeys } from '../utils/api'
 
 type Props = {
   alreadyLogged: boolean,
 }
 
-type State = {
-  run: number,
-  bike: number,
-  swim: number,
-  sleep: number,
-  eat: number,
-}
+type State = Entry
 
-class AddEntry extends Component<Props, State> {
+class AddEntry extends Component<Props, Props, State> {
   static defaultProps = {
     alreadyLogged: false,
   }
 
-  state = {
+  state: State = {
     run: 0,
     bike: 0,
     swim: 0,
@@ -36,7 +31,7 @@ class AddEntry extends Component<Props, State> {
 
   props: Props
 
-  increment = (metric) => {
+  increment = (metric: EntryKeys) => {
     const { max, step } = getMetricMetaInfo(metric)
 
     this.setState((state) => {
@@ -49,7 +44,7 @@ class AddEntry extends Component<Props, State> {
     })
   }
 
-  decrement = (metric) => {
+  decrement = (metric: EntryKeys) => {
     this.setState((state) => {
       const count = state[metric] - getMetricMetaInfo(metric).step
 
@@ -60,7 +55,7 @@ class AddEntry extends Component<Props, State> {
     })
   }
 
-  slide = (metric, value) => {
+  slide = (metric: EntryKeys, value: number) => {
     this.setState(() => ({
       [metric]: value,
     }))
