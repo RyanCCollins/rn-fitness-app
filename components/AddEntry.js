@@ -1,17 +1,17 @@
 // @flow
 
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { View } from 'react-native'
 import { getMetricMetaInfo, timeToString } from '../utils/helpers'
 import { submitEntry, removeEntry } from '../utils/api'
-import UdaciSlider from './UdaciSlider'
-import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
 import SubmitButton from './SubmitButton'
-import TextButton from './TextButton'
+import UIControl from './UIControl'
+import AlreadyLogged from './AlreadyLogged'
 
-type Props = {}
+type Props = {
+  alreadyLogged: boolean,
+}
 
 type State = {
   run: number,
@@ -22,6 +22,10 @@ type State = {
 }
 
 class AddEntry extends Component<Props, State> {
+  static defaultProps = {
+    alreadyLogged: false,
+  }
+
   state = {
     run: 0,
     bike: 0,
@@ -29,6 +33,9 @@ class AddEntry extends Component<Props, State> {
     sleep: 0,
     eat: 0,
   }
+
+  props: Props
+
   increment = (metric) => {
     const { max, step } = getMetricMetaInfo(metric)
 
@@ -41,6 +48,7 @@ class AddEntry extends Component<Props, State> {
       }
     })
   }
+
   decrement = (metric) => {
     this.setState((state) => {
       const count = state[metric] - getMetricMetaInfo(metric).step
@@ -51,14 +59,16 @@ class AddEntry extends Component<Props, State> {
       }
     })
   }
+
   slide = (metric, value) => {
     this.setState(() => ({
       [metric]: value,
     }))
   }
+
   submit = () => {
     const key = timeToString()
-    
+
     this.setState({
       run: 0,
       bike: 0,
@@ -69,26 +79,16 @@ class AddEntry extends Component<Props, State> {
 
     submitEntry({ key, entry: this.state })
   }
+
   reset = () => {
     const key = timeToString()
     removeEntry(key)
   }
+
   render() {
-    if (this.props.alreadyLogged) {
-      return (
-        <View>
-          <Ionicons
-            name="ios-happy-outline"
-            size={100}
-          />
-          <Text>
-            You already logged your information for today
-          </Text>
-          <TextButton onPress={this.reset}>
-            Reset
-          </TextButton>
-        </View>
-      )
+    const { alreadyLogged } = this.props
+    if (alreadyLogged) {
+      return <AlreadyLogged />
     }
 
     const metaInfo = getMetricMetaInfo()
@@ -102,18 +102,15 @@ class AddEntry extends Component<Props, State> {
           return (
             <View key={key}>
               {getIcon()}
-              {type === 'slider'
-                ? <UdaciSlider
-                  value={value}
-                  onChange={val => this.slide(key, val)}
-                  {...rest}
-                />
-                : <UdaciSteppers
-                  value={value}
-                  onIncrement={() => this.increment(key)}
-                  onDecrement={() => this.decrement(key)}
-                  {...rest}
-                />}
+              <UIControl
+                key={key}
+                value={value}
+                onChange={val => this.slide(key, val)}
+                onIncrement={() => this.increment(key)}
+                onDecrement={() => this.decrement(key)}
+                type={type}
+                {...rest}
+              />
             </View>
           )
         })}

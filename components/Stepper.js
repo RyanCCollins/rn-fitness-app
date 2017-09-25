@@ -1,49 +1,38 @@
 // @flow
-import React from 'react'
-import { View, TouchableOpacity, StyleSheet } from 'react-native'
-import { FontAwesome, Entypo } from '@expo/vector-icons'
-import { black, blue } from '../utils/colors'
 
-type Props = {
-  onDecrement: () => void,
-  onIncrement: () => void,
-}
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { withState, compose } from 'recompose'
+import StepperBase from './StepperBase'
 
 const styles = StyleSheet.create({
-  view: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: blue,
-    borderWidth: 1,
-    borderRadius: 3,
-    margin: 10,
+  container: {
+    marginLeft: 20,
+    marginRight: 20,
   },
-  button: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-  },
-  line: {
-    width: 1,
-    height: '100%',
-    backgroundColor: blue,
-  }
 })
 
-export default function Stepper({
-  onDecrement,
-  onIncrement,
-}: Props) {
+type Props = {
+  setValue: (val: number) => void,
+  value: number,
+  unit: string,
+}
+
+function Stepper({ value, unit, setValue }: Props) {
   return (
-    <View style={styles.view}>
-      <TouchableOpacity style={styles.button} onPress={onDecrement}>
-        <FontAwesome name="minus" size={20} color={blue} />
-      </TouchableOpacity>
-      <View style={styles.line} />
-      <TouchableOpacity style={styles.button} onPress={onIncrement}>
-        <Entypo name="plus" size={30} color={blue} />
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <StepperBase
+        onDecrement={() => setValue(value - 1)}
+        onIncrement={() => setValue(value + 1)}
+      />
+      <View>
+        <Text>{value}</Text>
+        <Text>{unit}</Text>
+      </View>
     </View>
   )
 }
+
+export default compose(
+  withState('value', 'setValue', 0),
+)(Stepper)

@@ -1,9 +1,8 @@
 // @flow
 
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
 import { withState, compose } from 'recompose'
-import Stepper from './Stepper'
+import { View, Text, Slider, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -13,17 +12,22 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-  setValue: (val: number) => void,
-  value: number,
+  max: number,
   unit: string,
+  step: number,
+  value: number,
+  setValue: (val: number) => void,
 }
 
-function UdaciSteppers({ value, unit, setValue }: Props) {
+function Slider({ max, unit, step, value, setValue }: Props) {
   return (
     <View style={styles.container}>
-      <Stepper
-        onDecrement={() => setValue(value - 1)}
-        onIncrement={() => setValue(value + 1)}
+      <Slider
+        step={step}
+        value={value}
+        maximumValue={max}
+        minimumValue={0}
+        onValueChange={setValue}
       />
       <View>
         <Text>{value}</Text>
@@ -35,4 +39,4 @@ function UdaciSteppers({ value, unit, setValue }: Props) {
 
 export default compose(
   withState('value', 'setValue', 0),
-)(UdaciSteppers)
+)(Slider)
