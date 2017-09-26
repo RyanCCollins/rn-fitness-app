@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { withState, compose } from 'recompose'
-import { View, Text, Slider, StyleSheet } from 'react-native'
+import { View, Text, Slider as RNSlider, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -19,10 +19,10 @@ type Props = {
   setValue: (val: number) => void,
 }
 
-function Slider({ max, unit, step, value, setValue }: Props) {
+function Slider({ max, unit, step, value, setValue }: Props): React.Element<*> {
   return (
     <View style={styles.container}>
-      <Slider
+      <RNSlider
         step={step}
         value={value}
         maximumValue={max}

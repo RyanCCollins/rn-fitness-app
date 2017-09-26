@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
   text: {
     color: white,
     fontSize: 20,
-  }
+  },
 })
 
-function SubmitButton({ onPress }: Props) {
+function SubmitButton({ onPress }: Props): React.Element<*> {
   return (
     <TouchableOpacity
       style={styles.button}

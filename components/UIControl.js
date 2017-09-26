@@ -8,7 +8,6 @@ type ControlType = 'slider' | 'stepper'
 
 type Props = {
   type: ControlType,
-  key: string,
   value: number,
   onChange: () => void,
   onIncrement: () => void,
@@ -17,7 +16,6 @@ type Props = {
 
 export default function UIControl({
   type,
-  key,
   value,
   onChange,
   onIncrement,
@@ -33,7 +31,7 @@ export default function UIControl({
           {...rest}
         />
       )
-    case 'stepper':
+    case 'steppers':
       return (
         <Stepper
           value={value}

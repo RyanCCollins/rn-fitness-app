@@ -83,7 +83,7 @@ class AddEntry extends Component<Props, Props, State> {
   render() {
     const { alreadyLogged } = this.props
     if (alreadyLogged) {
-      return <AlreadyLogged />;
+      return <AlreadyLogged />
     }
 
     const metaInfo = getMetricMetaInfo()
