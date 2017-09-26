@@ -1,36 +1,47 @@
 // @flow
 
-import React, { Component } from 'react'
-import { Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { red, white } from '../utils/colors'
+import React from 'react'
+import { Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { purple, white } from '../utils/colors'
 
 type Props = {
   onPress: () => void,
 }
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 44,
-    margin: 20,
-    padding: 20,
-    backgroundColor: red,
-    borderRadius: 50,
+  iosSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40,
   },
-  text: {
+  androidSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    height: 45,
+    borderRadius: 2,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  submitBtnText: {
     color: white,
-    fontSize: 20,
+    fontSize: 22,
+    textAlign: 'center',
   },
 })
 
 function SubmitButton({ onPress }: Props): React.Element<*> {
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
       onPress={onPress}
     >
-      <Text style={styles.text}>Submit</Text>
+      <Text style={styles.submitBtnText}>Submit</Text>
     </TouchableOpacity>
   )
 }
