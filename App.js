@@ -5,7 +5,7 @@ import { AddEntry } from './src/screens'
 
 export default function App(): Element<*> {
   return (
-    <View>
+    <View style={{ display: 'flex' }}>
       <AddEntry />
     </View>
   )
