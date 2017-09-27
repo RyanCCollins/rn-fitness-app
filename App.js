@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import AddEntry from './components/AddEntry'
+import React from 'react'
+import type { Element } from 'react'
+import { View } from 'react-native'
+import { AddEntry } from './src/screens'
 
-export default class App extends Component {
-  render() {
-    return (
-      <View>
-        <AddEntry />
-      </View>
-    )
-  }
+export default function App(): Element<*> {
+  return (
+    <View>
+      <AddEntry />
+    </View>
+  )
 }
-

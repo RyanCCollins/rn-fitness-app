@@ -2,14 +2,8 @@
 
 import React from 'react'
 import { withState, compose } from 'recompose'
-import { View, Text, Slider, StyleSheet } from 'react-native'
-
-const styles = StyleSheet.create({
-  container: {
-    marginLeft: 20,
-    marginRight: 20,
-  },
-})
+import { View, Text, Slider as RNSlider } from 'react-native'
+import SliderContainer from './SliderContainer'
 
 type Props = {
   max: number,
@@ -21,8 +15,8 @@ type Props = {
 
 function Slider({ max, unit, step, value, setValue }: Props) {
   return (
-    <View style={styles.container}>
-      <Slider
+    <SliderContainer>
+      <RNSlider
         step={step}
         value={value}
         maximumValue={max}
@@ -33,7 +27,7 @@ function Slider({ max, unit, step, value, setValue }: Props) {
         <Text>{value}</Text>
         <Text>{unit}</Text>
       </View>
-    </View>
+    </SliderContainer>
   )
 }
 

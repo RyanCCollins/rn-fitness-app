@@ -2,13 +2,15 @@
 
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { getMetricMetaInfo, timeToString } from '../utils/helpers'
-import { submitEntry, removeEntry } from '../utils/api'
-import DateHeader from './DateHeader'
-import SubmitButton from './SubmitButton'
-import UIControl from './UIControl'
-import AlreadyLogged from './AlreadyLogged'
-import type { Entry, EntryKeys } from '../utils/api'
+import { getMetricMetaInfo, timeToString } from '../../utils/helpers'
+import { submitEntry, removeEntry } from '../../utils/api'
+import type { Entry, EntryKeys } from '../../utils/api'
+import {
+  DateHeader,
+  SubmitButton,
+  UIControl,
+  AlreadyLogged,
+} from '../../components'
 
 type Props = {
   alreadyLogged: boolean,
@@ -16,7 +18,7 @@ type Props = {
 
 type State = Entry
 
-class AddEntry extends Component<Props, Props, State> {
+class AddEntry extends Component<Props, State> {
   static defaultProps = {
     alreadyLogged: false,
   }
@@ -83,7 +85,7 @@ class AddEntry extends Component<Props, Props, State> {
   render() {
     const { alreadyLogged } = this.props
     if (alreadyLogged) {
-      return <AlreadyLogged />;
+      return <AlreadyLogged />
     }
 
     const metaInfo = getMetricMetaInfo()

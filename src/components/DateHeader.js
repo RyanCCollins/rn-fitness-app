@@ -5,6 +5,6 @@ type Props = {
   date: string,
 }
 
-export default function DateHeader({ date }: Props): React$Element<*> {
+export default function DateHeader({ date }: Props) {
   return <Text>{date}</Text>
 }

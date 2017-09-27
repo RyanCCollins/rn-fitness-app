@@ -1,9 +1,10 @@
+// @flow
 import React from 'react'
 import { View, Text } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import TextButton from './TextButton'
 
-function AlreadyLogged(): React$Element<*> {
+function AlreadyLogged() {
   return (
     <View>
       <Ionicons

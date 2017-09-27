@@ -1,16 +1,12 @@
 // @flow
 
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
 import { withState, compose } from 'recompose'
+import StepperContainer from './StepperContainer'
 import StepperBase from './StepperBase'
-
-const styles = StyleSheet.create({
-  container: {
-    marginLeft: 20,
-    marginRight: 20,
-  },
-})
+import MetricCounter from './MetricCounter'
+import Unit from './Unit'
+import Value from './Value'
 
 type Props = {
   setValue: (val: number) => void,
@@ -20,16 +16,16 @@ type Props = {
 
 function Stepper({ value, unit, setValue }: Props) {
   return (
-    <View style={styles.container}>
+    <StepperContainer>
       <StepperBase
         onDecrement={() => setValue(value - 1)}
         onIncrement={() => setValue(value + 1)}
       />
-      <View>
-        <Text>{value}</Text>
-        <Text>{unit}</Text>
-      </View>
-    </View>
+      <MetricCounter>
+        <Value>{value}</Value>
+        <Unit>{unit}</Unit>
+      </MetricCounter>
+    </StepperContainer>
   )
 }
 
