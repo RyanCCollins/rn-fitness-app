@@ -1,12 +1,17 @@
 import React from 'react'
 import type { Element } from 'react'
+import { createStore } from 'redux'
 import { View } from 'react-native'
-import { AddEntry } from './src/screens'
+import { Provider } from 'react-redux'
+import Tabs from './src/screens/Tabs'
+import mainReducer from './src/'
 
 export default function App(): Element<*> {
   return (
-    <View style={{ display: 'flex' }}>
-      <AddEntry />
-    </View>
+    <Provider store={createStore(mainReducer)}>
+      <View style={{ display: 'flex' }}>
+        <Tabs />
+      </View>
+    </Provider>
   )
 }

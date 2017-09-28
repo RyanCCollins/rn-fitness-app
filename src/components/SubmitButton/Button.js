@@ -9,5 +9,5 @@ export default styled.TouchableOpacity`
   margin: 20px;
   padding: 20px;
   background-color: ${red};
-  border-radius: 50%;
+  border-radius: 50px;
 `
