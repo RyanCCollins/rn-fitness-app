@@ -9,7 +9,7 @@ import mainReducer from './src/reducers'
 export default function App(): Element<*> {
   return (
     <Provider store={createStore(mainReducer)}>
-      <View style={{ display: 'flex' }}>
+      <View style={{ display: 'flex', flex: 1 }}>
         <Tabs />
       </View>
     </Provider>
