@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import Tabs from './src/screens/Tabs'
-import mainReducer from './src/'
+import mainReducer from './src/reducers'
 
 export default function App(): Element<*> {
   return (

@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "babel-eslint": "^8.0.0",
+    "eslint-plugin-flowtype": "^2.36.0",
     "eslint-plugin-flowtype-errors": "^3.3.1",
     "expo": "^20.0.0",
     "flow-bin": "^0.55.0",

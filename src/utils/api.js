@@ -7,7 +7,6 @@ import filter from 'lodash/fp/filter'
 import compose from 'lodash/fp/compose'
 import { CALENDER_STORAGE_KEY } from './_calendar'
 
-export type EntryKeys = $Keys<Entry>
 export type Entry = {
   run: number,
   bike: number,
@@ -15,6 +14,7 @@ export type Entry = {
   sleep: number,
   eat: number,
 }
+export type EntryKeys = $Keys<Entry>
 
 type Key = string
 type SubmitEntryArgs = {
