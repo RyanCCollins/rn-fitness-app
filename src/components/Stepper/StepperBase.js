@@ -14,8 +14,8 @@ type Props = {
 }
 
 export default function StepperBase({
-  onDecrement,
   onIncrement,
+  onDecrement,
 }: Props) {
   return (
     <StepBaseContainer>
