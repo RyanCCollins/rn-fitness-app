@@ -3,6 +3,7 @@ import React from 'react'
 import { Platform } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+
 import { History, AddEntry } from './index'
 import { purple, white } from '../utils/colors'
 
