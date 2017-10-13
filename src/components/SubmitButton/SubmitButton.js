@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+
 import Button from './Button'
 import ButtonText from './ButtonText'
 
